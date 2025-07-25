@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>구내식당 주간 메뉴</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', 'Malgun Gothic', Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 32px;
+      color: #333;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+      margin: 40px auto 0 auto;
+      max-width: 1200px;
+    }
+    .cafeteria {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      padding: 24px 20px 20px 20px;
+      width: 340px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow 0.2s;
+    }
+    .cafeteria:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+    }
+    .cafeteria h2 {
+      margin: 0 0 16px 0;
+      font-size: 1.3em;
+      color: #1976d2;
+      letter-spacing: 1px;
+    }
+    .cafeteria img {
+      width: 100%;
+      max-width: 400px;
+      min-width: 300px;
+      min-height: 200px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 10px;
+      background: #eee;
+      object-fit: contain;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .cafeteria img:hover {
+      transform: scale(1.04);
+    }
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+    .image-modal.active {
+      display: flex;
+    }
+    .image-modal img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      background: #fff;
+    }
+    .image-modal .close-btn {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      font-size: 2.5em;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1100;
+      user-select: none;
+    }
+    @media (max-width: 1100px) {
+      .container { gap: 20px; }
+      .cafeteria { width: 280px; }
+      .cafeteria img { max-width: 240px; }
+    }
+    @media (max-width: 900px) {
+      .container { flex-direction: column; align-items: center; }
+      .cafeteria { width: 90vw; max-width: 400px; }
+      .cafeteria img { max-width: 90vw; }
+    }
+  </style>
+</head>
+<body>
+  <h1>구내식당 이번주 메뉴</h1>
+  <div class="container">
+    <div class="cafeteria">
+      <h2>한진</h2>
+      <img src="menu1.jpg" alt="한진 메뉴" class="menu-img">
+    </div>
+    <div class="cafeteria">
+      <h2>티시스</h2>
+      <img src="menu2.jpg" alt="티시스 메뉴" class="menu-img">
+    </div>
+    <div class="cafeteria">
+      <h2>우체국</h2>
+      <img src="menu3.jpg" alt="우체국 메뉴" class="menu-img">
+    </div>
+  </div>
+  <div class="image-modal" id="imageModal">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <img id="modalImg" src="" alt="전체 메뉴 이미지">
+  </div>
+  <script>
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const closeModal = document.getElementById('closeModal');
+    document.querySelectorAll('.menu-img').forEach(img => {
+      img.addEventListener('click', function() {
+        modal.classList.add('active');
+        modalImg.src = this.src;
+        modalImg.alt = this.alt;
+      });
+    });
+    closeModal.addEventListener('click', function() {
+      modal.classList.remove('active');
+      modalImg.src = '';
+    });
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        modalImg.src = '';
+      }
+    });
+  </script>
+</body>
+</html> 
